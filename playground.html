@@ -7,10 +7,39 @@
     <title>Playground — Vue 3</title>
   </head>
   <body>
-    <h1>
-      Hello World!
-    </h1>
     <div id="app">
+      <h1>
+        Counter
+      </h1>
+    
+      <p>
+        {{ count }}
+      </p>
+    
+      <button v-on:click="incrementCount">
+        Increment Counter
+      </button>
+
+      <h1>
+        {{ incrementAmount }}
+      </h1>
+
+      <div>
+        <label for="incrementAmount">
+          Increment by:
+        </label>
+        <input type="number" v-model="incrementAmount">   
+        <!-- Directive v-modal="incrementAmount" tracks to that data property
+          <input
+            type="number"
+            v-bind:value="incrementAmount"
+            v-on:input="changeIncrementAmount"
+          > 
+        -->
+      </div>
+    
+      <hr>
+  
       <p v-if="message.length %2 === 0">
         Odd: {{ message }}
       </p>
@@ -19,9 +48,10 @@
       </p>
       <ul>
         <li v-for="number of listOfNumbers">
-          {{ number * Math.random() }}
+          {{ number }}
         </li>
       </ul>
+
     </div>
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -31,8 +61,18 @@
       const app = createApp({
         data() {
           return {
+            count: 10,
+            incrementAmount: 8,
             message: "We might work!",
             listOfNumbers: [1, 2, 3, 4, 5, 6]
+          }
+        },
+        methods: {
+          // changeIncrementAmount(event) {
+          //   this.incrementAmount = event.target.value;
+          // },
+          incrementCount() {
+            this.count += this.incrementAmount;
           }
         }
       });
