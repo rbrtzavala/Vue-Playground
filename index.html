@@ -4,7 +4,97 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Resevoir Dogs</title>
   </head>
-  <body></body>
+  <body>
+    <div id="app">
+      <p v-if="characterList.length === 0">
+        There are no characters
+      </p>
+
+      <ul v-else>
+        <li v-for="character in characterList">
+          <p>
+            {{ character.name }}
+          </p>
+          <button @click="favoriteCharacter(character)">⭐️ Favorite</button>
+        </li>
+      </ul>
+
+      <h2>
+        Favorite Characters
+      </h2>
+
+      <ul v-if="favoriteList.length > 0">
+        <li v-for="character in favoriteList">
+          {{ character.name }}
+        </li>
+      </ul>
+      <p v-else>
+        No favorite characters yet!
+      </p>
+
+      <h2>
+        New Characters
+      </h2>
+      <pre>
+        {{ newCharacter }}
+      </pre>
+      <label for="character-name">
+        Character Name
+      </label>
+      <input
+        type="text"
+        v-model="newCharacter.name"
+        @keyup.enter="addNewCharacter"
+      >
+
+      <p>
+        <span v-for="(character, index) in characterList">
+          {{ character.name }}{{ index === characterList.length - 1 ? '' : ', ' }}
+        </span>
+      </p>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      Vue.createApp({
+        data: () => ({
+          characterList: [
+            {
+              name: 'Mr. Brown'
+            },
+            {
+              name: 'Mr. White'
+            },
+            {
+              name: 'Mr. Blonde'
+            },
+            {
+              name: 'Mr. Orange'
+            },
+            {
+              name: 'Mr. Pink'
+            },
+            {
+              name: 'Nice Guy Eddie'
+            },
+          ],
+          favoriteList: [],
+          newCharacter: {
+            name: ''
+          }
+        }),
+        methods: {
+          addNewCharacter() {
+            this.characterList.push(this.newCharacter)
+            this.newCharacter = { name: '' }
+          },
+          favoriteCharacter(character) {
+            this.favoriteList.push(character)
+          }
+        }
+      }).mount('#app')
+    </script>
+  </body>
 </html>
