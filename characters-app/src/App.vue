@@ -1,9 +1,11 @@
 <script>
+import BaseLayout from './components/BaseLayout.vue';
 import CharacterCard from './components/CharacterCard.vue';
 import CharacterStatistics from './components/CharacterStatistics.vue';
 
 export default {
   components: {
+    BaseLayout,
     CharacterCard,
     CharacterStatistics
   },
@@ -53,6 +55,30 @@ export default {
 </script>
 
 <template>
+  <BaseLayout>
+    <template v-slot:two>
+      <h2>
+        New Characters
+      </h2>
+      <pre>
+        {{ newCharacter }}
+      </pre>
+      <label for="character-name">
+        Character Name
+      </label>
+      <input
+        type="text"
+        v-model="newCharacter.name"
+        @keyup.enter="addNewCharacter"
+      >
+
+      <p>
+        <span v-for="(character, index) in characterList" :key="`comma-list-${index}`">
+          {{ character.name }}{{ index === characterList.length - 1 ? '' : ', ' }}
+        </span>
+      </p>
+    </template>
+  </BaseLayout>
 
   <CharacterStatistics
     :characters="characterList"
@@ -88,26 +114,5 @@ export default {
       </ul>
       <p v-else>
         No favorite characters yet!
-      </p>
-
-      <h2>
-        New Characters
-      </h2>
-      <pre>
-        {{ newCharacter }}
-      </pre>
-      <label for="character-name">
-        Character Name
-      </label>
-      <input
-        type="text"
-        v-model="newCharacter.name"
-        @keyup.enter="addNewCharacter"
-      >
-
-      <p>
-        <span v-for="(character, index) in characterList" :key="`comma-list-${index}`">
-          {{ character.name }}{{ index === characterList.length - 1 ? '' : ', ' }}
-        </span>
       </p>
 </template>
