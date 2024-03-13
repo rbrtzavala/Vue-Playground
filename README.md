@@ -1,3 +1,3 @@
 # Vue-Playground
 
-Exploriing Vue 3 development wih Vite and create-vue
+Exploring Vue 3 development with Vite and create-vue
