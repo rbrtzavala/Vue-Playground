@@ -12,7 +12,7 @@ export default {
             },
             {
               name: 'Mr. Blonde',
-              element: ['Air', 'Fire']
+              element: ['Air','Fire']
             },
             {
               name: 'Mr. Orange',
