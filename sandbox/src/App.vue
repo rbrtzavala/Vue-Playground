@@ -1,16 +1,18 @@
 <script>
+import BaseCounter from './components/BaseCounter.vue';
+
 export default {
+  components: {
+    BaseCounter,
+  },
   data() {
     return {
-      count: 10,
-      counterTitle: 'Counter Standard',
-      incrementAmount: 8,
       message: "We might work!",
       listOfNumbers: [
         {
-          name: 1,
+          name: 0,
           id: '6a887cd2-f0bf-4321-b192-92016f82a883',
-          list: [1, 2, 3]
+          list: [1, 2, 6]
         },
         {
           name: 2,
@@ -35,25 +37,6 @@ export default {
       ]
     }
   },
-  computed: {
-    displayTitle() {
-      if (this.count > 20) {
-        return 'Counter Standard - Very Long'
-      } else {
-        return 'Counter Standard'
-      }
-    },
-    opttimizedIncrementAmount() {
-      return this.displayTitle.length * this.incrementAmount
-    }
-  },
-  methods: {
-    incrementCount(newAmount, event) {
-      console.log(newAmount);
-      console.log(event);
-      this.count += this.opttimizedIncrementAmount;
-    }
-  },
   watch: {
     count(newValue) {
       if (newValue > 20) {
@@ -65,33 +48,7 @@ export default {
 </script>
 
 <template>
-
-  <h1>
-    {{ displayTitle }}
-  </h1>
-
-  <p>
-    {{ count }}
-  </p>
-
-  <button v-on:click="incrementCount">
-    Increment Counter
-  </button>
-
-  <h1>
-    {{ incrementAmount }}
-  </h1>
-
-  <p>
-    {{ opttimizedIncrementAmount }}
-  </p>
-
-  <div>
-    <label for="incrementAmount">
-      Increment by:
-    </label>
-    <input type="number" v-model="incrementAmount">   
-  </div>
+  <BaseCounter />
 
   <hr>
 
