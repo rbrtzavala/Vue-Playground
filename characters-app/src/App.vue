@@ -1,82 +1,62 @@
 <script>
-export default {
-        data: () => ({
-          characterList: [
-            {
-              name: 'Mr. Brown',
-              element: ['Air', 'Earth', 'Water', 'Fire']
-            },
-            {
-              name: 'Mr. White',
-              element: ['Fire']
-            },
-            {
-              name: 'Mr. Blonde',
-              element: ['Air','Fire']
-            },
-            {
-              name: 'Mr. Orange',
-              element: ['Water']
-            },
-            {
-              name: 'Mr. Pink',
-              element: ['Earth', 'Air']
-            },
-            {
-              name: 'Nice Guy Eddie',
-              element: ['Fire']
-            },
-          ],
-          favoriteList: [],
-          newCharacter: {
-            name: '',
-            element: []
-          }
-        }),
-        computed: {
-          elementStatistics() {
-            const elements = ['Air', 'Earth', 'Fire', 'Water'];
-            const statistics = {
-              Air: 0,
-              Earth: 0,
-              Fire: 0,
-              Water: 0
-            }
+import CharacterCard from './components/CharacterCard.vue';
+import CharacterStatistics from './components/CharacterStatistics.vue';
 
-            this.characterList.forEach(character => {
-              elements.forEach(element => {
-                if (character.element.indexOf(element) > -1) {
-                  statistics[element] += 1
-                }
-              })
-            })
-            
-            // return this.characterList.filter(character => character.element.indexOf('Earth') > -1).length
-            return statistics
-          }
-        },
-        methods: {
-          addNewCharacter() {
-            this.characterList.push(this.newCharacter)
-            this.newCharacter = { name: '' }
-          },
-          favoriteCharacter(character) {
-            this.favoriteList.push(character)
-          }
-        }
-      }
+export default {
+  components: {
+    CharacterCard,
+    CharacterStatistics
+  },
+  data: () => ({
+    characterList: [
+      {
+        name: 'Mr. Brown',
+        element: ['Air', 'Earth', 'Water', 'Fire']
+      },
+      {
+        name: 'Mr. White',
+        element: ['Fire']
+      },
+      {
+        name: 'Mr. Blonde',
+        element: ['Air','Fire']
+      },
+      {
+        name: 'Mr. Orange',
+        element: ['Water']
+      },
+      {
+        name: 'Mr. Pink',
+        element: ['Earth', 'Air']
+      },
+      {
+        name: 'Nice Guy Eddie',
+        element: ['Fire']
+      },
+    ],
+    favoriteList: [],
+    newCharacter: {
+      name: '',
+      element: []
+    }
+  }),
+  methods: {
+    addNewCharacter() {
+      this.characterList.push(this.newCharacter)
+      this.newCharacter = { name: '' }
+    },
+    addFavoriteCharacter(payload) {
+      this.favoriteList.push(payload);
+    },
+  }
+}
 </script>
 
 <template>
-      <h2>
-        Statistics
-      </h2>
 
-      <ul>
-        <li v-for="(stat, type) in elementStatistics" :key="`${stat}-${type}`">
-          {{ type }}: {{ stat }}
-        </li>
-      </ul>
+  <CharacterStatistics
+    :characters="characterList"
+  />
 
       <h2>
         Characters
@@ -86,14 +66,16 @@ export default {
         There are no characters
       </p>
 
-      <ul v-else>
+      <ul v-else-if="characterList.length % 2 === 0">
         <li v-for="(character, index) in characterList" :key="`even-char-${index}`">
-          <p>
-            {{ character.name }}
-          </p>
-          <button @click="favoriteCharacter(character)">⭐️ Favorite</button>
+          <!-- Placeholder CharCard -->
+          <CharacterCard
+            :character="character"
+            @favorite="addFavoriteCharacter"
+          />
         </li>
       </ul>
+      <p v-else>There are odd characters!</p>
 
       <h2>
         Favorite Characters
@@ -101,7 +83,7 @@ export default {
 
       <ul v-if="favoriteList.length > 0">
         <li v-for="(character, i) in favoriteList" :key="`odd-char-${i}`">
-          {{ character.name }}
+          {{ character }}
         </li>
       </ul>
       <p v-else>
