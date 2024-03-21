@@ -11,17 +11,17 @@ export default {
 <template>
   <div>
     <h1>
-        New App
-      </h1>
+      New App
+    </h1>
       
-      <Suspense>
-        <div>
-          <Pokedex />
-      
-          <template>
-            Data Loading...
-          </template>
-        </div>
-      </Suspense>
+    <Suspense>
+      <div>
+        <Pokedex />
+    
+        <template>
+          Data Loading...
+        </template>
+      </div>
+    </Suspense>
   </div>
 </template>

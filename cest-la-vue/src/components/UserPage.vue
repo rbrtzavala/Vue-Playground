@@ -1,25 +1,44 @@
 <script>
-const myHeaders = new Headers();
-myHeaders.append("Content-Type", "Application/JSON");
+import { reactive } from 'vue';
 
 export default {
-  data: () => ({
-    userList: [],
-    userTodos: []
-  }),
-  methods: {
-    async fetchUserList() {
-      this.userList = await fetch('https://pokeapi.co/api/v2/pokemon?limit=10')
+  async setup() {
+    const state = reactive({
+      userList: [],
+    });
+
+    async function fetchUserList() {
+      const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=10')
       .then(res => res.json());
-    },
+
+      return response;
+    }
+
+    state.userList = await fetchUserList();
+
+    return {
+      state, 
+      fetchUserList
+    }
+  },
+  // data: () => ({
+  //   // userList: [],
+  //   userTodos: []
+  // }),
+  methods: {
+    // async fetchUserList() {
+    //   this.state.userList = await fetch('https://pokeapi.co/api/v2/pokemon?limit=10')
+    //   .then(res => res.json());
+    // },
     async fetchUserTodos() {
       this.userTodos = fetch('https://jsonplaceholder.typicode.com/todos')
       .then(res => res.json());
     }
   },
-  created() {
-    this.fetchUserList();
-  },
+  // created() {
+  //   this.fetchUserList();
+  //   console.log('???', this.state.userList.results);
+  // },
 }
 </script>
 
@@ -29,7 +48,7 @@ export default {
 
     <ul>
       <li
-        v-for="user in userList.results"
+        v-for="user in state.userList.results"
         :key="`user-${user.name}`"
         class="user-item"
       >
