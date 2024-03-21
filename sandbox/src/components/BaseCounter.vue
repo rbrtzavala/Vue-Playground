@@ -1,6 +1,13 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script>
+import { newCount } from '../composables/countStore'
+
 export default {
+  setup() {
+    return {
+      newCount,
+    };
+  },
   data: () => ({
     count: 10,
     counterTitle: 'Counter Standard',
@@ -23,6 +30,7 @@ export default {
       console.log(newAmount);
       console.log(event);
       this.count += this.opttimizedIncrementAmount;
+      this.newCount += 10;
     }
   }
 }
@@ -30,32 +38,38 @@ export default {
 
 
 <template>
+  <main>
+
+    <h1>
+      {{ displayTitle }}
+    </h1>
+    
+      <h2>
+        {{  newCount }}
+      </h2>
   
-  <h1>
-    {{ displayTitle }}
-  </h1>
-
-  <p>
-    {{ count }}
-  </p>
-
-  <button v-on:click="incrementCount">
-    Increment Counter
-  </button>
-
-  <h1>
-    {{ incrementAmount }}
-  </h1>
-
-  <p>
-    {{ opttimizedIncrementAmount }}
-  </p>
-
-  <div>
-    <label for="incrementAmount">
-      Increment by:
-    </label>
-    <input type="number" v-model="incrementAmount">   
-  </div>
+    <p>
+      {{ count }}
+    </p>
+  
+    <button v-on:click="incrementCount">
+      Increment Counter
+    </button>
+  
+    <h1>
+      {{ incrementAmount }}
+    </h1>
+  
+    <p>
+      {{ opttimizedIncrementAmount }}
+    </p>
+  
+    <div>
+      <label for="incrementAmount">
+        Increment by:
+      </label>
+      <input type="number" v-model="incrementAmount">   
+    </div>
+  </main>
 
 </template>

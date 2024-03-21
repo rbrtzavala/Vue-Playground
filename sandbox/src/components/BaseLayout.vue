@@ -1,3 +1,16 @@
+<script>
+import { newCount } from '../composables/countStore'
+
+export default {
+  setup() {
+    return {
+      newCount,
+    };
+  },
+}
+</script>
+
+
 <template>
   <div class="grid">
     <div class="one">

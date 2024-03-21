@@ -1,8 +1,12 @@
 <script>
 import Pokedex from './components/PokedexComp.vue';
+import BaseCounter from './components/BaseCounter.vue';
+import BaseLayout from './components/BaseLayout.vue';
 
 export default {
   components: {
+    BaseCounter,
+    BaseLayout,
     Pokedex,
   }
 }
@@ -16,6 +20,12 @@ export default {
       
     <Suspense>
       <div>
+        <BaseCounter />
+        <BaseLayout>
+          <template v-slot:one>
+            <BaseCounter />
+          </template>
+        </BaseLayout>
         <Pokedex region="underWorld" />
     
         <template>
