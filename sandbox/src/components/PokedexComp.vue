@@ -16,30 +16,21 @@ import { computed, ref, reactive } from 'vue';
         return state.elementType.toUpperCase();
       });
 
+      const changeRegionName = () => {
+        regionName.value = 'Hoenen!'
+      }
+
       const pokedex = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
         .then(res => res.json());
 
       return {
+        changeRegionName,
         elemenTypeAllCaps,
         pokedex,
         regionName,
         regionNameAllCaps
       };
-    },
-    computed: {
-      regionNameLowerCase() {
-        return this.regionName.toLowerCase();
-      },
-    },
-    methods: {
-      changeRegionName() {
-        this.regionName = 'Hoenn'
-      }
-    },
-    created() {
-      // console.log('Created');
-      // console.log(this.pokedex);
-    },
+    }
   };
 </script>
 
@@ -47,7 +38,6 @@ import { computed, ref, reactive } from 'vue';
   <div>
     <h2>{{  regionName }}</h2>
     <h3>{{  regionNameAllCaps }}</h3>
-    <h3>{{  regionNameLowerCase }}</h3>
     <h3>{{  elemenTypeAllCaps }}</h3>
     <button @click="changeRegionName">
       Change Region Name
