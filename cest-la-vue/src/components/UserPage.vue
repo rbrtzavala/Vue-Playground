@@ -1,50 +1,32 @@
-<script>
-import { reactive } from 'vue';
+<script setup>
+import { defineEmits, defineProps, reactive } from 'vue';
 
-export default {
-  async setup() {
-    const state = reactive({
-      userList: [],
-    });
+defineProps({
+  title: {
+    type: String,
+    default: 'User List'
+  }
+});
 
-    async function fetchUserList() {
-      const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=10')
-      .then(res => res.json());
+defineEmits('update-user-list');
 
-      return response;
-    }
+const state = reactive({
+  userList: [],
+});
 
-    state.userList = await fetchUserList();
+async function fetchUserList() {
+  const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=10')
+  .then(res => res.json());
 
-    return {
-      state, 
-      fetchUserList
-    }
-  },
-  // data: () => ({
-  //   // userList: [],
-  //   userTodos: []
-  // }),
-  methods: {
-    // async fetchUserList() {
-    //   this.state.userList = await fetch('https://pokeapi.co/api/v2/pokemon?limit=10')
-    //   .then(res => res.json());
-    // },
-    async fetchUserTodos() {
-      this.userTodos = fetch('https://jsonplaceholder.typicode.com/todos')
-      .then(res => res.json());
-    }
-  },
-  // created() {
-  //   this.fetchUserList();
-  //   console.log('???', this.state.userList.results);
-  // },
+  return response;
 }
+
+state.userList = await fetchUserList();
 </script>
 
 <template>
   <main>
-    <h1>Users</h1>
+    <h1>{{ title }}</h1>
 
     <ul>
       <li
