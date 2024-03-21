@@ -1,37 +1,33 @@
-<script>
-import { computed, ref, reactive } from 'vue';
+<script setup>
+import { computed, defineProps, defineEmits, ref, reactive } from 'vue';
 
-  export default {
-    async setup() {
-      const regionName = ref("Kanto");
-      const state = reactive ({
-        elementType: 'Lightening'
-      })
+const emits = defineEmits('change-region');
 
-      const regionNameAllCaps = computed(() => {
-        return regionName.value.toUpperCase();
-      });
-      
-      const elemenTypeAllCaps = computed(() => {
-        return state.elementType.toUpperCase();
-      });
+const props = defineProps({
+  region: {
+    type: String
+  }
+})
 
-      const changeRegionName = () => {
-        regionName.value = 'Hoenen!'
-      }
+const regionName = ref("Kanto");
+const state = reactive ({
+  elementType: 'Lightening'
+})
 
-      const pokedex = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
-        .then(res => res.json());
+const regionNameAllCaps = computed(() => {
+  return regionName.value.toUpperCase();
+});
 
-      return {
-        changeRegionName,
-        elemenTypeAllCaps,
-        pokedex,
-        regionName,
-        regionNameAllCaps
-      };
-    }
-  };
+const elemenTypeAllCaps = computed(() => {
+  return state.elementType.toUpperCase() + ' ' + props.region;
+});
+
+const changeRegionName = () => {
+  regionName.value = 'Hoenen!'
+}
+
+const pokedex = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
+  .then(res => res.json());
 </script>
 
 <template>

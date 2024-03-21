@@ -16,7 +16,7 @@ export default {
       
     <Suspense>
       <div>
-        <Pokedex />
+        <Pokedex region="underWorld" />
     
         <template>
           Data Loading...
