@@ -1,5 +1,6 @@
 <script setup>
-import { defineEmits, defineProps, reactive } from 'vue';
+import { defineProps } from 'vue';
+import { userList }  from '../composables/useUserStore';
 
 defineProps({
   title: {
@@ -10,10 +11,6 @@ defineProps({
 
 defineEmits('update-user-list');
 
-const state = reactive({
-  userList: [],
-});
-
 async function fetchUserList() {
   const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=10')
   .then(res => res.json());
@@ -21,7 +18,7 @@ async function fetchUserList() {
   return response;
 }
 
-state.userList = await fetchUserList();
+userList.value = await fetchUserList();
 </script>
 
 <template>
@@ -30,7 +27,7 @@ state.userList = await fetchUserList();
 
     <ul>
       <li
-        v-for="user in state.userList.results"
+        v-for="user in userList.results"
         :key="`user-${user.name}`"
         class="user-item"
       >

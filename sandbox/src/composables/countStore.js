@@ -1,3 +1,3 @@
 import { ref } from 'vue';
 
-export const newCount = ref(200);
+export const newCount = ref(100);
