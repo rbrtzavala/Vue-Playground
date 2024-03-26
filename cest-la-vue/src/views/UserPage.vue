@@ -1,6 +1,7 @@
 <script setup>
 import { defineProps } from 'vue';
-import { userList }  from '../composables/useUserStore';
+import { useUserStore } from '@/stores/UserStore'
+// import { userList }  from '../composables/useUserStore';
 
 defineProps({
   title: {
@@ -11,14 +12,10 @@ defineProps({
 
 defineEmits('update-user-list');
 
-async function fetchUserList() {
-  const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=10')
-  .then(res => res.json());
+const userStore = useUserStore()
 
-  return response;
-}
-
-userList.value = await fetchUserList();
+userStore.fetchUsers();
+// userList.value = await fetchUserList();
 </script>
 
 <template>
@@ -27,7 +24,7 @@ userList.value = await fetchUserList();
 
     <ul>
       <li
-      v-for="user in userList.results"
+      v-for="user in userStore.userList.results"
       :key="`user-${user.name}`"
       class="user-item"
       >

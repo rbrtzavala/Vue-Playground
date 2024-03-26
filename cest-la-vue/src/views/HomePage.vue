@@ -1,6 +1,9 @@
 <script setup>
+import { useUserStore } from '@/stores/UserStore';
+
+const userStore = useUserStore()
 // import { userList }  from '../composables/useUserStore';
-import { computed } from 'vue';
+// import { computed } from 'vue';
 
 // const shortUserList = computed(() => {
 //   return userList.value.results.splice(0, 5);
@@ -14,15 +17,16 @@ import { computed } from 'vue';
       This is a place to manage various things: todos, users, posts, etc.
       Whatever your mind desires!
     </p>
-<!-- 
-    <ul>
+
+    <!-- <ul>
       <li
-        v-for="user in shortUserList"
+        v-for="user in userStore.shortUserList"
         :key="`user-${user.name}`"
       >
         {{ user.name }}
       </li>
     </ul> -->
+    
   </main>
 </template>
 
