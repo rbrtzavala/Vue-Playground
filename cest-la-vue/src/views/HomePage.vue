@@ -1,10 +1,10 @@
 <script setup>
-import { userList }  from '../composables/useUserStore';
+// import { userList }  from '../composables/useUserStore';
 import { computed } from 'vue';
 
-const shortUserList = computed(() => {
-  return userList.value.results.splice(0, 5);
-})
+// const shortUserList = computed(() => {
+//   return userList.value.results.splice(0, 5);
+// })
 </script>
 
 <template>
@@ -14,7 +14,7 @@ const shortUserList = computed(() => {
       This is a place to manage various things: todos, users, posts, etc.
       Whatever your mind desires!
     </p>
-
+<!-- 
     <ul>
       <li
         v-for="user in shortUserList"
@@ -22,7 +22,7 @@ const shortUserList = computed(() => {
       >
         {{ user.name }}
       </li>
-    </ul>
+    </ul> -->
   </main>
 </template>
 
