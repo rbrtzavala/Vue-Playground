@@ -27,11 +27,13 @@ userList.value = await fetchUserList();
 
     <ul>
       <li
-        v-for="user in userList.results"
-        :key="`user-${user.name}`"
-        class="user-item"
+      v-for="user in userList.results"
+      :key="`user-${user.name}`"
+      class="user-item"
       >
-        {{  user.name  }}: {{  user.url  }}
+        <router-link :to="`/user/${user.name}`">
+          {{  user.name  }}: {{  user.url  }}
+        </router-link>
       </li>
     </ul>
 
